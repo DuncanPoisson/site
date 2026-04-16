@@ -1,5 +1,5 @@
 [[main]]
-  name = "Home"
+  name = "About"
   pageRef = "/"
   weight = 10
 
@@ -9,8 +9,8 @@
   weight = 20
 
 [[main]]
-  name = "Research"
-  pageRef = "research"
+  name = "Journal"
+  pageRef = "journal"
   weight = 30
 
 [[main]]
@@ -19,6 +19,6 @@
   weight = 40
 
 [[main]]
-  name = "About"
-  pageRef = "about"
+  name = "Projects"
+  pageRef = "projects"
   weight = 50
