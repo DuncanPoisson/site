@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://duncanpoisson.github.io/site/sitemap.xml

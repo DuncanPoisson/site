@@ -3,3 +3,4 @@
 .rl/review-manifest.json
 .rl/e2e-results.md
 .rl/.e2e-*
+public/
