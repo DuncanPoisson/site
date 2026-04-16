@@ -10,10 +10,10 @@ description: "A placeholder research entry showing frontmatter conventions, code
 <!--
   Authoring note — Cross-linking between sections:
   Use the Hugo ref shortcode to link to other content pages, e.g.:
-    [Link text]( { {< ref "/research/some-entry" >} } )   (remove spaces around braces)
+    [Link text]( { {< ref "/journal/some-entry" >} } )   (remove spaces around braces)
   Hugo validates ref targets at build time; broken links fail the build.
   Prefer ref (absolute URL) over relref (relative) for links that
-  cross section boundaries (e.g., research ↔ blog).
+  cross section boundaries (e.g., journal ↔ blog).
 -->
 
 [placeholder] This entry demonstrates the structure of a research journal entry.

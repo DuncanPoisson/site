@@ -1,0 +1,78 @@
+{{ define "main" }}
+  <header>
+    {{ if .Params.showBreadcrumbs | default (.Site.Params.list.showBreadcrumbs | default false) }}
+      {{ partial "breadcrumbs.html" . }}
+    {{ end }}
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+  </header>
+  {{ if .Content }}
+    <section class="prose mt-4 max-w-full dark:prose-invert">
+      {{ .Content | emojify }}
+    </section>
+  {{ end }}
+
+  {{ if .Sections }}
+    <style>
+      .journal-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+      @media (min-width: 640px) {
+        .journal-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1024px) {
+        .journal-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .journal-box {
+        background-color: rgba(var(--color-neutral-50), 1);
+        border: 2px solid rgba(var(--color-secondary-500), 0.6);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+        display: block;
+      }
+      .journal-box:hover {
+        border-color: rgba(var(--color-secondary-500), 1);
+        box-shadow: 0 4px 12px rgba(var(--color-secondary-500), 0.15);
+      }
+      .journal-box-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: rgba(var(--color-primary-600), 1);
+        margin: 0 0 0.5rem 0;
+      }
+      .dark .journal-box-title {
+        color: rgba(var(--color-primary-500), 1);
+      }
+      .journal-box-desc {
+        font-size: 0.95rem;
+        color: rgba(var(--color-neutral-600), 1);
+        margin: 0;
+        line-height: 1.5;
+      }
+      .dark .journal-box {
+        background-color: rgba(var(--color-neutral-100), 1);
+      }
+      .dark .journal-box-desc {
+        color: rgba(var(--color-neutral-600), 1);
+      }
+    </style>
+    <div class="journal-grid">
+      {{ range .Sections }}
+        <a href="{{ .Permalink }}" class="journal-box">
+          <h2 class="journal-box-title">{{ .Title }}</h2>
+          {{ with .Description }}
+            <p class="journal-box-desc">{{ . }}</p>
+          {{ end }}
+        </a>
+      {{ end }}
+    </div>
+  {{ end }}
+{{ end }}

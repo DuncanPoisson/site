@@ -28,7 +28,7 @@ Understanding these dynamics requires tools that embrace non-linearity rather th
 
 [placeholder] One goal of this site is to bridge the gap between academic research and practical urban decision-making. The research journal tracks ongoing investigations; blog posts synthesize and contextualize findings for a broader audience.
 
-For a worked example of the simulation approach mentioned here, see the research entry: [Example Research Entry]({{< ref "/research/example-project/example-entry" >}}).
+For a worked example of the simulation approach mentioned here, see the research entry: [Example Research Entry]({{< ref "/journal/example-project/example-entry" >}}).
 
 ## Next Steps
 
