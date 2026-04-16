@@ -1,69 +1,69 @@
-# Implementation Plan — Design Overhaul
+# Implementation Plan — Custom Homepage
 
-**Change:** `design-overhaul` ([openspec/changes/design-overhaul/](openspec/changes/design-overhaul/))
+**Change:** `custom-homepage` ([openspec/changes/custom-homepage/](openspec/changes/custom-homepage/))
 **Status:** Proposed — ready for bootstrap/build
-**Owner:** Duncan Poisson
+**Owner:** Duncan Xavier Haddock
+**Branch:** `about-section`
 
 ## Goal
 
-Transform the site from Congo's default violet/fuchsia look into a cohesive personal brand with a warm cream, forest green, and burnt orange palette. Restructure navigation so the About page is the landing page, rename Research to Journal with a box-grid layout, add a Blog image+text list layout, introduce a new Projects portfolio section, and add burnt orange visual dividers.
+Replace the placeholder homepage with a bespoke, owner-authored landing page that introduces Duncan, frames the site's three working areas (Blog, Journal, Projects) with clickable section cards, and closes with an Angela Davis quote. At the same time, rename the site and author from "Duncan Poisson" to "Duncan Xavier Haddock" and render the header title in the site's primary green.
 
 ## Scope
 
 **In scope**
-- Custom color scheme (`duncan.css`) with warm cream backgrounds, forest green primary, burnt orange secondary — light and dark modes.
-- Favicon override: burnt orange square replacing purple.
-- Navigation: About (→ `/`), Blog, Journal, CV, Projects. No separate Home item.
-- Homepage = About page merged into root `_index.md`.
-- Journal section: `content/research/` renamed to `content/journal/`, box-grid list layout (3/2/1 responsive columns).
-- Blog list layout: horizontal rows with optional thumbnail image + title/date/description.
-- Projects section: new portfolio showcase at `content/projects/` with card-grid layout.
-- Visual dividers: burnt orange `<hr>` styling via `assets/css/custom.css`.
+- Site rename everywhere outside `themes/`, `public/`, `.git/`, and `openspec/changes/archive/` — `config/_default/hugo.toml` title, `config/_default/params.toml` author name, `content/_index.md` front matter, `IMPLEMENTATION_PLAN.md`.
+- Custom root template at `layouts/index.html` (project-level Hugo override that beats Congo's default home layout).
+- Four sections separated by burnt orange `<hr>` dividers (styling already in `assets/css/custom.css` from the `visual-dividers` spec):
+  1. **Hero** — photo + intro text, name heading in primary green. Photo-left / text-right on desktop; stacked on mobile.
+  2. **What is this website?** — green heading, bulleted research questions, transition sentence, three clickable green cards linking to `/blog/`, `/journal/`, `/projects/`.
+  3. **Who am I?** — green heading, bio body, single "More of me" card linking to `https://linktr.ee/` (placeholder URL, TODO).
+  4. **Quote** — centered italic blockquote attributed to Angela Davis.
+- Final copy per the project spec, written verbatim.
+- Placeholder `static/images/duncan.jpg` so the build succeeds before a real photo arrives.
+- Header/nav site title recolored to primary green (`#429347`) via a CSS rule in `assets/css/custom.css`.
 
 **Out of scope**
-- Final content (all content remains placeholder).
-- Custom single-page layouts (only list/landing layouts).
-- JavaScript, animations, search, comments, analytics.
-- Modifications to files inside `themes/congo/`.
+- Real photo (user swaps in later).
+- Real Linktree URL (user updates later).
+- Any edits inside `themes/congo/`.
+- Changes to other layouts (blog / journal / projects list pages).
+- Removing `layouts/partials/functions/warnings.html` — it must remain untouched.
 
 ## Approach
 
-1. **Color scheme first.** Create `assets/css/schemes/duncan.css` with full CSS variable sets for light and dark modes. Update `params.toml`. Replace favicon.
-2. **Navigation + homepage.** Restructure `menus.toml`. Merge about content into `_index.md`. Delete `content/about/`.
-3. **Journal rename + layout.** `git mv content/research/ content/journal/`. Update all cross-link refs. Create `layouts/journal/list.html` with a CSS Grid box layout.
-4. **Blog layout.** Create `layouts/blog/list.html` with flexbox image+text rows. Add thumbnail field to example post.
-5. **Projects section.** Create content and layout for the new Projects portfolio.
-6. **Visual polish.** Add `assets/css/custom.css` for divider styling. Add dividers to homepage.
-7. **Validate.** `hugo --minify` exits 0, no ERRORs. Visual check on `hugo server -D`.
+1. **Rename first.** Update title/author config, sweep remaining "Duncan Poisson" references, add the CSS rule that recolors the header site title.
+2. **Drop the placeholder asset.** Commit a small placeholder `static/images/duncan.jpg` so subsequent builds succeed.
+3. **Build the custom template.** `layouts/index.html` with inline `<style>` for scoped layout CSS (hero grid, card grid, mobile breakpoint at 768px). Use semantic `<a class="home-card">` anchors for the clickable cards.
+4. **Write the final copy.** Replace `content/_index.md` with the authored text verbatim and set the front matter.
+5. **Validate.** `hugo --minify` exits 0 with no `ERROR` lines. Visually verify at `hugo server`: light + dark, desktop + mobile, all four card targets.
 
 ## Key Design Decisions
 
 | Decision | Why |
 |---|---|
-| All customization via overrides, not theme edits | Theme stays updatable; `layouts/`, `assets/css/`, `config/` overrides are Hugo's intended mechanism. |
-| Layout-specific CSS in `<style>` blocks within layout files | Co-locates markup and styles; `custom.css` reserved for global overrides. |
-| No placeholder images for missing thumbnails | Avoids visual crutches that never get replaced. |
-| `<hr>` styling instead of custom shortcode | Markdown `---` already produces `<hr>`; CSS is simpler than a shortcode. |
-| Homepage = About via Congo's `page` layout | Already configured; just needs richer content in `_index.md`. |
+| Override at `layouts/index.html`, not `layouts/_default/home.html` | Narrowest override that takes over just the root URL without shadowing Congo's broader home-layout assumptions. |
+| Layout-specific CSS in an inline `<style>` block | Matches the precedent set by the design-overhaul change; keeps `custom.css` reserved for global rules. |
+| Section cards as single `<a>` anchors styled as blocks | Full-rectangle hit target, keyboard focus by default, no JavaScript. |
+| Reuse the existing `<hr>` burnt-orange rule | `visual-dividers` spec is the single source of truth; new layout just emits `<hr>` elements. |
+| CSS-only header-title recolor (no theme partial copy) | Avoids forking a Congo partial; falls back to partial override only if the selector proves brittle. |
+| Commit a placeholder photo instead of deferring | `<img>` has a valid target immediately; user swaps the file later without touching markup. |
 
 ## Deliverables
 
-- `assets/css/schemes/duncan.css` — custom color scheme (light + dark)
-- `assets/css/custom.css` — divider styling
-- `static/favicon.png` — burnt orange favicon
-- `config/_default/params.toml` — updated colorScheme
-- `config/_default/menus.toml` — restructured navigation
-- `content/_index.md` — merged homepage + about
-- `content/journal/` — renamed from `content/research/`
-- `content/projects/` — new portfolio section with example project
-- `layouts/journal/list.html` — box-grid layout
-- `layouts/blog/list.html` — image+text layout
-- `layouts/projects/list.html` — card-grid layout
-- All cross-links updated, build passes clean
+- `config/_default/hugo.toml` — `title = "Duncan Xavier Haddock"`
+- `config/_default/params.toml` — `[author].name = "Duncan Xavier Haddock"`
+- `assets/css/custom.css` — header-title green rule appended (dividers preserved)
+- `static/images/duncan.jpg` — placeholder photo
+- `layouts/index.html` — custom home template with four sections + inline styles
+- `content/_index.md` — final copy per spec, new front matter
+- `IMPLEMENTATION_PLAN.md` — this document, replacing the archived design-overhaul plan
+- Clean `hugo --minify` build, zero ERROR lines
 
 ## References
 
-- [proposal.md](openspec/changes/design-overhaul/proposal.md) — why this change
-- [design.md](openspec/changes/design-overhaul/design.md) — how it's structured
-- [specs/](openspec/changes/design-overhaul/specs/) — delta specs per capability
-- [tasks.md](openspec/changes/design-overhaul/tasks.md) — implementation checklist
+- [proposal.md](openspec/changes/custom-homepage/proposal.md) — why this change
+- [design.md](openspec/changes/custom-homepage/design.md) — how it's structured
+- [specs/site-identity/spec.md](openspec/changes/custom-homepage/specs/site-identity/spec.md) — name + header-color requirements
+- [specs/homepage-layout/spec.md](openspec/changes/custom-homepage/specs/homepage-layout/spec.md) — section-by-section requirements
+- [tasks.md](openspec/changes/custom-homepage/tasks.md) — implementation checklist
