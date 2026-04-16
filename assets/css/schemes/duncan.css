@@ -1,0 +1,80 @@
+/* Duncan scheme — warm cream, forest green, burnt orange */
+:root {
+  --color-neutral: 255, 246, 237;
+  /* Warm grays derived from cream #fff6ed */
+  --color-neutral-50: 255, 250, 245;
+  --color-neutral-100: 253, 244, 234;
+  --color-neutral-200: 247, 232, 216;
+  --color-neutral-300: 237, 214, 191;
+  --color-neutral-400: 200, 178, 156;
+  --color-neutral-500: 158, 140, 122;
+  --color-neutral-600: 120, 105, 91;
+  --color-neutral-700: 92, 80, 69;
+  --color-neutral-800: 62, 54, 46;
+  --color-neutral-900: 40, 35, 30;
+  --color-neutral-950: 22, 19, 16;
+  /* Forest green centered on #429347 */
+  --color-primary-50: 236, 248, 237;
+  --color-primary-100: 213, 240, 215;
+  --color-primary-200: 174, 224, 178;
+  --color-primary-300: 128, 202, 133;
+  --color-primary-400: 85, 173, 90;
+  --color-primary-500: 66, 147, 71;
+  --color-primary-600: 50, 122, 55;
+  --color-primary-700: 41, 98, 45;
+  --color-primary-800: 35, 78, 38;
+  --color-primary-900: 30, 64, 33;
+  --color-primary-950: 14, 36, 16;
+  /* Burnt orange centered on #C74D20 */
+  --color-secondary-50: 255, 243, 236;
+  --color-secondary-100: 255, 228, 212;
+  --color-secondary-200: 255, 200, 170;
+  --color-secondary-300: 245, 160, 118;
+  --color-secondary-400: 228, 114, 68;
+  --color-secondary-500: 199, 77, 32;
+  --color-secondary-600: 172, 60, 22;
+  --color-secondary-700: 140, 47, 18;
+  --color-secondary-800: 112, 40, 18;
+  --color-secondary-900: 90, 35, 18;
+  --color-secondary-950: 50, 16, 6;
+}
+
+.dark {
+  --color-neutral: 26, 22, 18;
+  /* Warm dark grays */
+  --color-neutral-50: 22, 19, 16;
+  --color-neutral-100: 30, 26, 22;
+  --color-neutral-200: 42, 37, 31;
+  --color-neutral-300: 62, 54, 46;
+  --color-neutral-400: 92, 80, 69;
+  --color-neutral-500: 140, 124, 108;
+  --color-neutral-600: 180, 162, 144;
+  --color-neutral-700: 210, 196, 180;
+  --color-neutral-800: 232, 222, 210;
+  --color-neutral-900: 245, 238, 230;
+  --color-neutral-950: 255, 250, 245;
+  /* Forest green — slightly brighter for dark backgrounds */
+  --color-primary-50: 14, 36, 16;
+  --color-primary-100: 24, 52, 27;
+  --color-primary-200: 35, 78, 38;
+  --color-primary-300: 50, 110, 55;
+  --color-primary-400: 66, 147, 71;
+  --color-primary-500: 85, 173, 90;
+  --color-primary-600: 128, 202, 133;
+  --color-primary-700: 174, 224, 178;
+  --color-primary-800: 213, 240, 215;
+  --color-primary-900: 236, 248, 237;
+  --color-primary-950: 245, 252, 246;
+  /* Burnt orange — slightly brighter for dark backgrounds */
+  --color-secondary-50: 50, 16, 6;
+  --color-secondary-100: 80, 30, 12;
+  --color-secondary-200: 112, 40, 18;
+  --color-secondary-300: 155, 55, 20;
+  --color-secondary-400: 199, 77, 32;
+  --color-secondary-500: 228, 114, 68;
+  --color-secondary-600: 245, 160, 118;
+  --color-secondary-700: 255, 200, 170;
+  --color-secondary-800: 255, 228, 212;
+  --color-secondary-900: 255, 243, 236;
+  --color-secondary-950: 255, 249, 246;
+}
