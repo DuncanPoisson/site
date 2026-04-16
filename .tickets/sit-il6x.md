@@ -1,6 +1,6 @@
 ---
 id: sit-il6x
-status: open
+status: closed
 deps: [sit-f5ks]
 links: []
 created: 2026-04-15T23:48:47Z
@@ -37,3 +37,9 @@ Workflow YAML lints clean (actionlint or yaml-lint); action versions pinned; sub
 - `IMPLEMENTATION_PLAN.md` addendum: "Post-merge: Settings → Pages → Source = GitHub Actions (one-time)."
 - No secrets required (uses GITHUB_TOKEN + OIDC).
 
+
+## Notes
+
+**2026-04-16T19:29:18Z**
+
+Created .github/workflows/hugo.yml with SHA-pinned actions, submodules: recursive, Hugo 0.160.1 extended, build error detection, and Pages deploy. IMPLEMENTATION_PLAN.md already had post-merge manual step.
