@@ -1,0 +1,106 @@
+{{ define "main" }}
+  <header>
+    {{ if .Params.showBreadcrumbs | default (.Site.Params.list.showBreadcrumbs | default false) }}
+      {{ partial "breadcrumbs.html" . }}
+    {{ end }}
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+  </header>
+  {{ if .Content }}
+    <section class="prose mt-4 max-w-full dark:prose-invert">
+      {{ .Content | emojify }}
+    </section>
+  {{ end }}
+
+  {{ if .Pages }}
+    <style>
+      .blog-list {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .blog-entry {
+        display: flex;
+        flex-direction: row;
+        gap: 1.25rem;
+        text-decoration: none;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        transition: background-color 0.2s ease;
+      }
+      .blog-entry:hover {
+        background-color: rgba(var(--color-neutral-100), 1);
+      }
+      .dark .blog-entry:hover {
+        background-color: rgba(var(--color-neutral-200), 1);
+      }
+      .blog-entry-thumb {
+        flex-shrink: 0;
+        width: 180px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 0.375rem;
+      }
+      .blog-entry-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 0;
+      }
+      .blog-entry-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: rgba(var(--color-primary-600), 1);
+        margin: 0 0 0.25rem 0;
+      }
+      .dark .blog-entry-title {
+        color: rgba(var(--color-primary-500), 1);
+      }
+      .blog-entry-meta {
+        font-size: 0.85rem;
+        color: rgba(var(--color-neutral-500), 1);
+        margin: 0 0 0.5rem 0;
+      }
+      .blog-entry-desc {
+        font-size: 0.95rem;
+        color: rgba(var(--color-neutral-700), 1);
+        margin: 0;
+        line-height: 1.5;
+      }
+      .dark .blog-entry-desc {
+        color: rgba(var(--color-neutral-600), 1);
+      }
+      @media (max-width: 639px) {
+        .blog-entry {
+          flex-direction: column;
+        }
+        .blog-entry-thumb {
+          width: 100%;
+          height: 180px;
+        }
+      }
+    </style>
+    <div class="blog-list">
+      {{ range (.Paginate .Pages).Pages }}
+        <a href="{{ .Permalink }}" class="blog-entry">
+          {{ with .Params.thumbnail }}
+            <img src="{{ . | relURL }}" alt="" class="blog-entry-thumb" loading="lazy" />
+          {{ end }}
+          <div class="blog-entry-content">
+            <h2 class="blog-entry-title">{{ .Title }}</h2>
+            <p class="blog-entry-meta">
+              {{ partial "functions/date.html" .Date }}
+              {{ if .Params.showReadingTime | default ($.Site.Params.article.showReadingTime | default false) }}
+                · {{ .ReadingTime }} {{ i18n "article.reading_time" .ReadingTime }}
+              {{ end }}
+            </p>
+            {{ with .Description }}
+              <p class="blog-entry-desc">{{ . }}</p>
+            {{ end }}
+          </div>
+        </a>
+      {{ end }}
+    </div>
+    {{ partial "pagination.html" . }}
+  {{ end }}
+{{ end }}

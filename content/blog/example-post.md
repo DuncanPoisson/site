@@ -5,6 +5,7 @@ draft: false
 tags: ["complexity", "urbanism"]
 categories: ["essays"]
 description: "A placeholder blog post demonstrating frontmatter conventions, TOC headings, and cross-links."
+thumbnail: "images/example-thumb.png"
 ---
 
 <!--
