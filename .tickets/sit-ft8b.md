@@ -1,6 +1,6 @@
 ---
 id: sit-ft8b
-status: open
+status: closed
 deps: []
 links: []
 created: 2026-04-16T21:09:36Z

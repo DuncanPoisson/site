@@ -1,6 +1,6 @@
 ---
 id: sit-k2sf
-status: open
+status: closed
 deps: [sit-q0fm, sit-ft8b]
 links: []
 created: 2026-04-16T21:10:23Z

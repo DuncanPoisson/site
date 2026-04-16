@@ -1,6 +1,6 @@
 ---
 id: sit-oynz
-status: open
+status: closed
 deps: []
 links: []
 created: 2026-04-16T21:10:15Z

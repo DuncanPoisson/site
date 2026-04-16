@@ -1,6 +1,6 @@
 ---
 id: sit-ckj8
-status: open
+status: closed
 deps: []
 links: []
 created: 2026-04-16T21:09:42Z

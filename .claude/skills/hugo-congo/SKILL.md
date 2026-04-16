@@ -23,14 +23,18 @@ config/_default/
   menus.toml        # top-level navigation
   markup.toml       # goldmark / TOC / highlighting config
 content/
-  _index.md                           # homepage
-  blog/_index.md, blog/<post>.md      # dated posts
-  research/_index.md                  # lists projects
-  research/<project>/_index.md        # project landing
-  research/<project>/<entry>.md       # individual research entries
+  _index.md                           # homepage (also serves as about page)
+  blog/_index.md, blog/<post>.md      # dated posts (custom image+text list layout)
+  journal/_index.md                   # lists projects (custom box-grid layout)
+  journal/<project>/_index.md         # project landing
+  journal/<project>/<entry>.md        # individual journal entries
+  projects/_index.md                  # portfolio showcase (custom card-grid layout)
+  projects/<project-name>.md          # individual project pages
   cv/_index.md
-  about/_index.md
   questions/_index.md
+assets/css/
+  schemes/duncan.css                  # custom color scheme (warm cream, green, orange)
+  custom.css                          # global overrides (divider styling)
 layouts/partials/functions/warnings.html   # Hugo 0.160 compat shim — keep
 themes/congo/                               # submodule — do not touch
 ```
