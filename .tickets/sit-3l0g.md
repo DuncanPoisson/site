@@ -1,6 +1,6 @@
 ---
 id: sit-3l0g
-status: open
+status: closed
 deps: [sit-k1d8]
 links: []
 created: 2026-04-15T23:48:40Z
@@ -32,3 +32,9 @@ hugo --minify exits 0; routes /, /about/, /cv/, /questions/ resolve under /site/
 - All internal links use `{{< ref >}}` / `{{< relref >}}` (decision #3), not raw paths.
 - No draft frontmatter on `_index.md` files (section indexes must render).
 
+
+## Notes
+
+**2026-04-16T19:32:06Z**
+
+Created content/_index.md (homepage with page layout and link to about), content/about/_index.md, content/cv/_index.md (Education/Experience/Skills/Relevant Coursework sections), content/questions/_index.md (question tracker table with example row). All pages use [placeholder] markers. hugo --minify passes clean.
