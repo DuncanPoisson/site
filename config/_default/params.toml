@@ -1,6 +1,48 @@
 colorScheme = "congo"
 defaultAppearance = "light"
+autoSwitchAppearance = true
+
+enableCodeCopy = true
+enableImageLazyLoading = true
+enableImageWebp = true
 
 [author]
   name = "Duncan Poisson"
   headline = "Complexity Science · Urban Systems"
+
+[header]
+  layout = "basic"
+  showTitle = true
+
+[footer]
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+[homepage]
+  layout = "page"
+  showRecent = false
+
+[article]
+  showDate = true
+  showDateUpdated = false
+  showAuthor = true
+  showBreadcrumbs = true
+  showDraftLabel = true
+  showHeadingAnchors = true
+  showPagination = true
+  showReadingTime = true
+  showTableOfContents = true
+  showTaxonomies = true
+  showWordCount = false
+
+[list]
+  showBreadcrumbs = true
+  showSummary = true
+  showTableOfContents = false
+  showTaxonomies = true
+  groupByYear = false
+
+[taxonomy]
+  showTermCount = true

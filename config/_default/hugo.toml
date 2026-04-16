@@ -2,3 +2,16 @@ baseURL = "https://duncanpoisson.github.io/site/"
 languageCode = "en-us"
 title = "Duncan Poisson"
 theme = "congo"
+defaultContentLanguage = "en"
+enableRobotsTXT = true
+summaryLength = 0
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[outputs]
+  home = ["HTML", "RSS"]
+
+[pagination]
+  pagerSize = 15

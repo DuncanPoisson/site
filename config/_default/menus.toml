@@ -1,1 +1,24 @@
-# We'll configure these properly later
+[[main]]
+  name = "Home"
+  pageRef = "/"
+  weight = 10
+
+[[main]]
+  name = "Blog"
+  pageRef = "blog"
+  weight = 20
+
+[[main]]
+  name = "Research"
+  pageRef = "research"
+  weight = 30
+
+[[main]]
+  name = "CV"
+  pageRef = "cv"
+  weight = 40
+
+[[main]]
+  name = "About"
+  pageRef = "about"
+  weight = 50

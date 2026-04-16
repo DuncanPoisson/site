@@ -1,6 +1,6 @@
 ---
 id: sit-k1d8
-status: open
+status: closed
 deps: []
 links: []
 created: 2026-04-15T23:48:32Z
@@ -33,3 +33,9 @@ hugo --minify exits 0 with no ERROR lines; hugo server -D starts clean; menu ent
 - Preserve `layouts/partials/functions/warnings.html`; do not modify `themes/congo/`.
 - Validation: `hugo --minify` then `hugo server -D` — visit routes manually.
 
+
+## Notes
+
+**2026-04-16T19:23:23Z**
+
+Configured hugo.toml (taxonomies, outputs, pagination, robots), params.toml (Congo appearance, article, header/footer, homepage layout, dark/light toggle), menus.toml (Home/Blog/Research/CV/About), markup.toml (TOC, highlight). Build passes clean, /tags/ and /categories/ pages render.
