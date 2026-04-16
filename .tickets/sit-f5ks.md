@@ -1,6 +1,6 @@
 ---
 id: sit-f5ks
-status: open
+status: closed
 deps: [sit-k1d8]
 links: []
 created: 2026-04-15T23:48:41Z
@@ -34,3 +34,9 @@ hugo --minify exits 0 with no ERROR (ref targets validated); reading time + TOC 
 - Add a short HTML-comment authoring note in both files explaining `ref`/`relref` usage (decision #3, per task 5.2).
 - Do NOT add custom layouts; rely on Congo defaults for section lists and single pages.
 
+
+## Notes
+
+**2026-04-16T19:25:53Z**
+
+Created blog and research journal sections with cross-links. Blog has _index.md + example-post.md (3 headings for TOC, reading time). Research has _index.md, example-project/_index.md, and example-entry.md (code block, SVG image placeholder, 3 headings). Shared 'complexity' tag produces aggregated /tags/complexity/ page listing both. Mutual ref cross-links validated by hugo --minify (exit 0, no errors). HTML comment authoring notes use escaped shortcode syntax to avoid Hugo parsing.
