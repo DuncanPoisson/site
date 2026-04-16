@@ -1,68 +1,69 @@
-# Implementation Plan — Personal Academic Website
+# Implementation Plan — Design Overhaul
 
-**Change:** `site-architecture` ([openspec/changes/site-architecture/](openspec/changes/site-architecture/))
+**Change:** `design-overhaul` ([openspec/changes/design-overhaul/](openspec/changes/design-overhaul/))
 **Status:** Proposed — ready for bootstrap/build
 **Owner:** Duncan Poisson
 
 ## Goal
 
-Stand up the structural skeleton of a personal academic website at `https://duncanpoisson.github.io/site/` using Hugo + the Congo theme. This change delivers navigation, sections, taxonomy, cross-linking conventions, and a GitHub Actions deploy pipeline. It does **not** deliver final content — every content file is placeholder only.
+Transform the site from Congo's default violet/fuchsia look into a cohesive personal brand with a warm cream, forest green, and burnt orange palette. Restructure navigation so the About page is the landing page, rename Research to Journal with a box-grid layout, add a Blog image+text list layout, introduce a new Projects portfolio section, and add burnt orange visual dividers.
 
 ## Scope
 
 **In scope**
-- Four top-level sections: Home, Blog, Research Journal, CV — plus About and Question Tracker.
-- A project-indexed Research Journal: `content/research/<project>/<entry>.md`.
-- Shared `tags` + `categories` taxonomy across Blog and Research.
-- Reading time + table of contents enabled site-wide for article-type content.
-- `ref`/`relref` cross-linking convention, demonstrated in the example post and example research entry.
-- Dark/light mode toggle (Congo default).
-- GitHub Actions workflow that builds and deploys to GitHub Pages on push to `main`.
+- Custom color scheme (`duncan.css`) with warm cream backgrounds, forest green primary, burnt orange secondary — light and dark modes.
+- Favicon override: burnt orange square replacing purple.
+- Navigation: About (→ `/`), Blog, Journal, CV, Projects. No separate Home item.
+- Homepage = About page merged into root `_index.md`.
+- Journal section: `content/research/` renamed to `content/journal/`, box-grid list layout (3/2/1 responsive columns).
+- Blog list layout: horizontal rows with optional thumbnail image + title/date/description.
+- Projects section: new portfolio showcase at `content/projects/` with card-grid layout.
+- Visual dividers: burnt orange `<hr>` styling via `assets/css/custom.css`.
 
 **Out of scope**
-- Real content, final prose, or personal biography.
-- Custom layouts, CSS, or theme modifications.
-- Comments, analytics, search, newsletter, multi-language.
+- Final content (all content remains placeholder).
+- Custom single-page layouts (only list/landing layouts).
+- JavaScript, animations, search, comments, analytics.
+- Modifications to files inside `themes/congo/`.
 
 ## Approach
 
-1. **Config first.** Populate `params.toml` and `menus.toml`, wire the taxonomy in `hugo.toml`. Leave `themes/congo/` and `layouts/partials/functions/warnings.html` untouched.
-2. **Content skeleton.** Create section `_index.md` files plus one example blog post and one example research project/entry. Cross-link them with `ref` shortcodes so the example itself exercises the convention.
-3. **CI/CD.** Add `.github/workflows/hugo.yml` using the official GitHub Pages action trio (`configure-pages` → `upload-pages-artifact` → `deploy-pages`) with `peaceiris/actions-hugo@v3` and `submodules: recursive` checkout.
-4. **Validate.** `hugo --minify` passes with no `ERROR` lines; `hugo server -D` starts clean; shared tag pages surface both Blog and Research entries.
+1. **Color scheme first.** Create `assets/css/schemes/duncan.css` with full CSS variable sets for light and dark modes. Update `params.toml`. Replace favicon.
+2. **Navigation + homepage.** Restructure `menus.toml`. Merge about content into `_index.md`. Delete `content/about/`.
+3. **Journal rename + layout.** `git mv content/research/ content/journal/`. Update all cross-link refs. Create `layouts/journal/list.html` with a CSS Grid box layout.
+4. **Blog layout.** Create `layouts/blog/list.html` with flexbox image+text rows. Add thumbnail field to example post.
+5. **Projects section.** Create content and layout for the new Projects portfolio.
+6. **Visual polish.** Add `assets/css/custom.css` for divider styling. Add dividers to homepage.
+7. **Validate.** `hugo --minify` exits 0, no ERRORs. Visual check on `hugo server -D`.
 
 ## Key Design Decisions
 
 | Decision | Why |
 |---|---|
-| Research Journal indexed by project, not date | Research output clusters around long-lived projects; date-flat listing would hide continuity. |
-| `ref`/`relref` for all cross-links | Build-time validation — broken links fail the build, not production. |
-| Shared site-wide taxonomy | Cross-cutting themes should surface in one place regardless of section origin. |
-| `peaceiris/actions-hugo` + official Pages actions (not `gh-pages` branch) | Fewer moving parts, native Pages permissions, matches GitHub's current recommended pattern. |
-| Congo `page` homepage layout | Cleanest, matches the "uncluttered statement of direction" brief. |
-
-See [`openspec/changes/site-architecture/design.md`](openspec/changes/site-architecture/design.md) for full rationale and alternatives.
+| All customization via overrides, not theme edits | Theme stays updatable; `layouts/`, `assets/css/`, `config/` overrides are Hugo's intended mechanism. |
+| Layout-specific CSS in `<style>` blocks within layout files | Co-locates markup and styles; `custom.css` reserved for global overrides. |
+| No placeholder images for missing thumbnails | Avoids visual crutches that never get replaced. |
+| `<hr>` styling instead of custom shortcode | Markdown `---` already produces `<hr>`; CSS is simpler than a shortcode. |
+| Homepage = About via Congo's `page` layout | Already configured; just needs richer content in `_index.md`. |
 
 ## Deliverables
 
-- `config/_default/params.toml`, `menus.toml`, `hugo.toml` populated.
-- Content trees: `content/_index.md`, `content/blog/`, `content/research/example-project/`, `content/cv/`, `content/about/`, `content/questions/`.
-- One example blog post and one example research entry, cross-linked.
-- `.github/workflows/hugo.yml` deploy pipeline.
-- Passing quality gate: `hugo --minify` exits 0 with no `ERROR` lines.
-
-## Post-Merge Manual Step
-
-After merging to `main`:
-
-> **GitHub repo → Settings → Pages → Source = "GitHub Actions"** (one-time).
-
-The first push to `main` after this setting is applied will perform the initial deploy.
+- `assets/css/schemes/duncan.css` — custom color scheme (light + dark)
+- `assets/css/custom.css` — divider styling
+- `static/favicon.png` — burnt orange favicon
+- `config/_default/params.toml` — updated colorScheme
+- `config/_default/menus.toml` — restructured navigation
+- `content/_index.md` — merged homepage + about
+- `content/journal/` — renamed from `content/research/`
+- `content/projects/` — new portfolio section with example project
+- `layouts/journal/list.html` — box-grid layout
+- `layouts/blog/list.html` — image+text layout
+- `layouts/projects/list.html` — card-grid layout
+- All cross-links updated, build passes clean
 
 ## References
 
-- [proposal.md](openspec/changes/site-architecture/proposal.md) — why this change
-- [design.md](openspec/changes/site-architecture/design.md) — how it's structured
-- [specs/site-architecture/spec.md](openspec/changes/site-architecture/specs/site-architecture/spec.md) — site requirements
-- [specs/deployment/spec.md](openspec/changes/site-architecture/specs/deployment/spec.md) — CI/CD requirements
-- [tasks.md](openspec/changes/site-architecture/tasks.md) — implementation checklist
+- [proposal.md](openspec/changes/design-overhaul/proposal.md) — why this change
+- [design.md](openspec/changes/design-overhaul/design.md) — how it's structured
+- [specs/](openspec/changes/design-overhaul/specs/) — delta specs per capability
+- [tasks.md](openspec/changes/design-overhaul/tasks.md) — implementation checklist
