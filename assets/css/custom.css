@@ -1,0 +1,6 @@
+/* Visual dividers — burnt orange */
+hr {
+  border: none;
+  border-top: 2px solid rgba(199, 77, 32, 0.8);
+  margin: 2rem 0;
+}
