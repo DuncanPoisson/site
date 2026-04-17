@@ -14,8 +14,8 @@
   weight = 30
 
 [[main]]
-  name = "CV"
-  pageRef = "cv"
+  name = "Gallery"
+  pageRef = "gallery"
   weight = 40
 
 [[main]]

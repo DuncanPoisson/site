@@ -1,6 +1,6 @@
 ---
 id: sit-u7vk
-status: open
+status: closed
 deps: []
 links: []
 created: 2026-04-17T23:10:43Z
@@ -23,3 +23,9 @@ Single-file change in config/_default/menus.toml. Weights become: About=10, Blog
 
 config/_default/menus.toml has five [[main]] entries in order About/Blog/Journal/Gallery/Projects with weights 10/20/30/40/50. No CV entry in the nav. content/cv/ is unchanged on disk. After running hugo --minify, public/cv/index.html still builds. hugo --minify exits 0 with zero ERROR lines.
 
+
+## Notes
+
+**2026-04-17T23:19:21Z**
+
+Swapped CV for Gallery in config/_default/menus.toml. New order: About(10), Blog(20), Journal(30), Gallery(40), Projects(50). /cv/ still resolves (public/cv/index.html generated). /gallery/ will 404 until sit-ls5r lands — expected per dep chain. hugo --minify exit 0, no ERROR lines.
