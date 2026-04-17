@@ -1,5 +1,5 @@
 ---
-title: "Duncan Poisson"
+title: "Duncan Xavier Haddock"
 description: "Complexity science, urban systems, and related explorations."
 ---
 

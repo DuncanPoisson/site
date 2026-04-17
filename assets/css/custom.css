@@ -4,3 +4,9 @@ hr {
   border-top: 2px solid rgba(199, 77, 32, 0.8);
   margin: 2rem 0;
 }
+
+/* Header site title in primary green (#429347).
+   Targets the rel="me" anchor that Congo's logo partial emits. */
+header nav a[rel="me"] {
+  color: #429347;
+}

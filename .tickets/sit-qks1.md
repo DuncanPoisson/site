@@ -1,6 +1,6 @@
 ---
 id: sit-qks1
-status: open
+status: closed
 deps: []
 links: []
 created: 2026-04-16T23:39:21Z
@@ -23,3 +23,9 @@ Prefer CSS-only override of the header title color to avoid forking themes/congo
 
 grep for 'Duncan Poisson' across tracked files (excluding themes/, public/, .git/, openspec/changes/archive/) returns zero matches. hugo.toml title = 'Duncan Xavier Haddock'. params.toml [author].name = 'Duncan Xavier Haddock'. In the built site, the header site-title element's computed color resolves to #429347. No file under themes/congo/ modified. layouts/partials/functions/warnings.html untouched. hugo --minify exits 0 with no ERROR lines.
 
+
+## Notes
+
+**2026-04-17T17:51:38Z**
+
+Updated hugo.toml title, params.toml author name, content/_index.md front matter, and IMPLEMENTATION_PLAN.md. Appended CSS rule to assets/css/custom.css targeting header nav a[rel='me']. Verified built public/index.html renders Duncan Xavier Haddock and the header anchor carries rel=me. Remaining 'Duncan Poisson' references live only in change artifacts (openspec/changes/custom-homepage/) and tickets describing the rename — those will be excluded after archive.

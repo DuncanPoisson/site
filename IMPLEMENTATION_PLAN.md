@@ -7,7 +7,7 @@
 
 ## Goal
 
-Replace the placeholder homepage with a bespoke, owner-authored landing page that introduces Duncan, frames the site's three working areas (Blog, Journal, Projects) with clickable section cards, and closes with an Angela Davis quote. At the same time, rename the site and author from "Duncan Poisson" to "Duncan Xavier Haddock" and render the header title in the site's primary green.
+Replace the placeholder homepage with a bespoke, owner-authored landing page that introduces Duncan, frames the site's three working areas (Blog, Journal, Projects) with clickable section cards, and closes with an Angela Davis quote. At the same time, rename the site title and author name to "Duncan Xavier Haddock" and render the header title in the site's primary green.
 
 ## Scope
 
@@ -32,7 +32,7 @@ Replace the placeholder homepage with a bespoke, owner-authored landing page tha
 
 ## Approach
 
-1. **Rename first.** Update title/author config, sweep remaining "Duncan Poisson" references, add the CSS rule that recolors the header site title.
+1. **Rename first.** Update title/author config, sweep remaining references to the previous name in tracked files, add the CSS rule that recolors the header site title.
 2. **Drop the placeholder asset.** Commit a small placeholder `static/images/duncan.jpg` so subsequent builds succeed.
 3. **Build the custom template.** `layouts/index.html` with inline `<style>` for scoped layout CSS (hero grid, card grid, mobile breakpoint at 768px). Use semantic `<a class="home-card">` anchors for the clickable cards.
 4. **Write the final copy.** Replace `content/_index.md` with the authored text verbatim and set the front matter.
