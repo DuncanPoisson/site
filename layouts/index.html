@@ -1,0 +1,196 @@
+{{ define "main" }}
+<style>
+  .home-content {
+    max-width: none;
+  }
+  .home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 280px) 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin: 2rem 0 2.5rem;
+  }
+  .home-hero img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+  }
+  .home-hero-name {
+    color: #429347;
+    margin: 0 0 1rem;
+    font-size: 2.25rem;
+    line-height: 1.15;
+    font-weight: 700;
+  }
+  .home-hero-text p {
+    margin: 0 0 1rem;
+  }
+  .home-hero-text p:last-child {
+    margin-bottom: 0;
+  }
+  .home-section {
+    margin: 2rem 0;
+  }
+  .home-section h2 {
+    color: #429347;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+  .home-section p,
+  .home-section ul {
+    margin: 0 0 1rem;
+  }
+  .home-section ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+  .home-section ul li {
+    margin-bottom: 0.75rem;
+  }
+  .home-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0 0;
+    list-style: none;
+    padding: 0;
+  }
+  .home-cards-single {
+    display: grid;
+    grid-template-columns: minmax(0, 20rem);
+    gap: 1rem;
+    margin: 1.5rem 0 0;
+    list-style: none;
+    padding: 0;
+  }
+  .home-card {
+    display: block;
+    background: #429347;
+    color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .home-card:hover,
+  .home-card:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .home-card-title {
+    display: block;
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: 0.35rem;
+  }
+  .home-card-subtitle {
+    display: block;
+    font-weight: 400;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    opacity: 0.95;
+  }
+  .home-card-single .home-card-title {
+    margin-bottom: 0;
+  }
+  .home-quote {
+    max-width: 48rem;
+    margin: 2.5rem auto;
+    padding: 0;
+    text-align: center;
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.55;
+    border: none;
+  }
+  .home-quote cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    font-style: normal;
+    opacity: 0.8;
+  }
+  @media (max-width: 768px) {
+    .home-hero {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: left;
+    }
+    .home-hero img {
+      max-width: 280px;
+    }
+    .home-cards {
+      grid-template-columns: 1fr;
+    }
+    .home-cards-single {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<article class="home-content">
+  <section class="home-hero">
+    <img src="{{ "images/duncan.jpg" | relURL }}" alt="Portrait of Duncan Xavier Haddock" />
+    <div class="home-hero-text">
+      <h1 class="home-hero-name">Duncan Xavier Haddock</h1>
+      {{ .Params.hero_intro | markdownify }}
+    </div>
+  </section>
+
+  <hr>
+
+  <section class="home-section">
+    <h2>What is this website?</h2>
+    {{ .Params.questions_body | markdownify }}
+    <ul class="home-cards">
+      <li>
+        <a class="home-card" href="{{ "blog/" | relURL }}">
+          <span class="home-card-title">Blog</span>
+          <span class="home-card-subtitle">Exploratory thinking. Responses to readings, connections between ideas, reflections on talks and local issues.</span>
+        </a>
+      </li>
+      <li>
+        <a class="home-card" href="{{ "journal/" | relURL }}">
+          <span class="home-card-title">Journal</span>
+          <span class="home-card-subtitle">Analytical work. Reproducing results from papers, working through datasets, building models, and question development.</span>
+        </a>
+      </li>
+      <li>
+        <a class="home-card" href="{{ "projects/" | relURL }}">
+          <span class="home-card-title">Projects</span>
+          <span class="home-card-subtitle">Public work I have contributed to.</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <hr>
+
+  <section class="home-section">
+    <h2>Who am I?</h2>
+    {{ .Params.bio_body | markdownify }}
+    <ul class="home-cards-single">
+      {{/* TODO: replace placeholder Linktree URL with real link */}}
+      <li>
+        <a class="home-card home-card-single" href="https://linktr.ee/">
+          <span class="home-card-title">More of me</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <hr>
+
+  <blockquote class="home-quote">
+    I am no longer accepting the things I cannot change. I am changing the things I cannot accept.
+    <cite>— Angela Davis</cite>
+  </blockquote>
+</article>
+{{ end }}

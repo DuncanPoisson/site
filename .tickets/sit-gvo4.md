@@ -1,6 +1,6 @@
 ---
 id: sit-gvo4
-status: open
+status: closed
 deps: [sit-gp18]
 links: []
 created: 2026-04-16T23:39:52Z
@@ -23,3 +23,9 @@ Layout override path: layouts/index.html (top-level) — narrower than layouts/_
 
 layouts/index.html exists and renders the root page with the four sections in order, each followed by <hr> (except possibly the last). Hero photo sits left of text at >768px and stacks above at <=768px. Hero name heading 'Duncan Xavier Haddock' computed color resolves to #429347. Three section cards in document order with hrefs /blog/, /journal/, /projects/; each is a single <a>; subtitle text matches spec verbatim. Fourth card in Who-am-I section is a single <a> with href starting https://linktr.ee/ and label beginning 'More of me'. All four cards computed background #429347, color white, border-radius between 8px and 12px. Quote wrapped in <blockquote>, center-aligned, italic, with 'Angela Davis' attribution. content/_index.md body copy matches spec verbatim (hero intro, research-questions body, bio paragraphs). themes/congo/ files unmodified. layouts/partials/functions/warnings.html unmodified. hugo --minify exits 0 with no ERROR lines.
 
+
+## Notes
+
+**2026-04-17T17:57:14Z**
+
+Created layouts/index.html defining block 'main', with inline <style> for hero grid + card grid (768px breakpoint), green name heading (#429347), green home-card anchors with white text and 10px border-radius, and a centered italic blockquote. content/_index.md stores hero_intro, questions_body, and bio_body as YAML block scalars (verbatim copy); rendered via {{ markdownify }}. Verified public/index.html: hero <section>, 3 <hr> dividers, three home-card anchors to /blog/, /journal/, /projects/, single 'More of me' card to https://linktr.ee/, and blockquote+cite for Angela Davis. hugo --minify exits 0.
