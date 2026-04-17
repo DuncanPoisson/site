@@ -1,6 +1,6 @@
 ---
 id: sit-gp18
-status: open
+status: closed
 deps: []
 links: []
 created: 2026-04-16T23:39:29Z
@@ -23,3 +23,9 @@ Any valid, small JPG works — e.g., a neutral-colored square or the theme's def
 
 static/images/duncan.jpg exists on disk and is a valid JPG. hugo --minify succeeds. After the layout ticket ships, requesting /images/duncan.jpg from hugo server returns 200.
 
+
+## Notes
+
+**2026-04-17T17:52:46Z**
+
+Created static/images/duncan.jpg (800x534 baseline JPEG, 60KB) from the existing example-thumb.png via sips. User should replace with a real ~800x800 portrait JPG.
