@@ -5,8 +5,22 @@ hr {
   margin: 2rem 0;
 }
 
-/* Header site title in primary green (#429347).
+/* Header site title in primary green (#082620).
    Targets the rel="me" anchor that Congo's logo partial emits. */
 header nav a[rel="me"] {
-  color: #429347;
+  color: #082620;
+}
+
+/* Header/nav band background — visually distinct from page background (#ead4bb).
+   Extends edge-to-edge using a box-shadow + clip-path trick so the band
+   reads as a site-wide bar without changing Congo's body max-width layout. */
+body > header {
+  background-color: #d1baa3;
+  box-shadow: 0 0 0 100vmax #d1baa3;
+  clip-path: inset(0 -100vmax);
+}
+
+.dark body > header {
+  background-color: #2a251f;
+  box-shadow: 0 0 0 100vmax #2a251f;
 }

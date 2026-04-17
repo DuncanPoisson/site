@@ -1,6 +1,6 @@
 ---
 id: sit-h2q2
-status: open
+status: closed
 deps: []
 links: []
 created: 2026-04-17T23:09:58Z
@@ -23,3 +23,9 @@ Congo reads --color-neutral-*, --color-primary-*, --color-secondary-* as RGB tri
 
 duncan.css primary 500 computes to rgb(8, 38, 32) in light mode; neutral 50 computes to rgb(234, 212, 187). Secondary palette byte-for-byte unchanged. Dark-mode primary 500 is a brighter forest green that clears WCAG AA contrast (>=4.5:1) against the dark-neutral background. custom.css has exactly one rule setting the header band background to rgb(209, 186, 163) and one updated site-title rule using #082620. themes/congo/ unmodified. hugo --minify exits 0 with zero ERROR lines. Rendered site in the browser shows a visible contrast between the header band and the page body.
 
+
+## Notes
+
+**2026-04-17T23:18:49Z**
+
+Regenerated duncan.css around primary #082620 and neutral #ead4bb mapped to neutral-50. Primary-500 light = rgb(8,38,32); dark-mode primary-500 = rgb(88,165,120) for AA contrast against dark neutrals. Neutral-900 light = rgb(14,20,22) = #0e1416 for body text. Secondary (burnt orange) unchanged. custom.css: site-title color now #082620; added body > header rule using box-shadow + clip-path to extend the #d1baa3 band edge-to-edge without widening body. Dark-mode band = #2a251f. hugo --minify exit 0, no ERROR lines.
