@@ -1,6 +1,6 @@
 ---
 id: sit-tezt
-status: open
+status: closed
 deps: [sit-qks1, sit-gvo4, sit-gp18]
 links: []
 created: 2026-04-16T23:40:01Z
@@ -23,3 +23,15 @@ Use curl or a browser for visual check. For a mobile-width check, resize the win
 
 hugo --minify exits 0 with no ERROR lines. All four card click targets navigate correctly. Homepage renders correctly at desktop and <=768px widths in both light and dark modes. themes/congo/ unchanged. warnings.html unchanged.
 
+
+## Notes
+
+**2026-04-17T18:25:14Z**
+
+Validation:
+- hugo --minify: exit 0, zero ERROR lines (36 pages, 9 static files)
+- GET /site/ returns 200; served HTML contains Duncan Xavier Haddock header anchor (rel=me), home-hero section, 25 home-card tokens (cards + subtitle spans), all four copy blocks (Howdy, I find myself, By training, Angela Davis), /linktr.ee/ link, and contains zero 'Duncan Poisson' references
+- GET /site/images/duncan.jpg returns 200
+- GET /site/blog/, /site/journal/, /site/projects/ all return 200
+- themes/congo/ unchanged vs main (git diff --stat empty)
+- layouts/partials/functions/warnings.html unchanged vs main
