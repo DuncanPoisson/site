@@ -19,7 +19,7 @@
     aspect-ratio: 1 / 1;
   }
   .home-hero-name {
-    color: #429347;
+    color: #082620;
     margin: 0 0 1rem;
     font-size: 2.25rem;
     line-height: 1.15;
@@ -35,22 +35,41 @@
     margin: 2rem 0;
   }
   .home-section h2 {
-    color: #429347;
+    color: #082620;
     margin-top: 0;
     margin-bottom: 1rem;
     font-size: 1.75rem;
     font-weight: 700;
   }
-  .home-section p,
-  .home-section ul {
+  .home-section p {
     margin: 0 0 1rem;
   }
-  .home-section ul {
-    list-style: disc;
-    padding-left: 1.25rem;
+  .home-matrix {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 1.5rem 0;
   }
-  .home-section ul li {
-    margin-bottom: 0.75rem;
+  .home-matrix-row {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  .home-matrix-row--a {
+    grid-template-columns: 2fr 3fr;
+  }
+  .home-matrix-row--b {
+    grid-template-columns: 3fr 2fr;
+  }
+  .home-matrix-row img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    object-fit: cover;
+  }
+  .home-matrix-text p {
+    margin: 0;
   }
   .home-cards {
     display: grid;
@@ -60,18 +79,23 @@
     list-style: none;
     padding: 0;
   }
+  .home-cards li,
+  .home-cards-single li {
+    list-style: none;
+  }
   .home-cards-single {
     display: grid;
-    grid-template-columns: minmax(0, 20rem);
+    grid-template-columns: minmax(0, 55%);
+    justify-content: center;
     gap: 1rem;
-    margin: 1.5rem 0 0;
+    margin: 1.5rem auto 0;
     list-style: none;
     padding: 0;
   }
   .home-card {
     display: block;
-    background: #429347;
-    color: #ffffff;
+    background: #082620;
+    color: #EAF9E1;
     padding: 1.25rem 1.5rem;
     border-radius: 10px;
     text-decoration: none;
@@ -80,8 +104,8 @@
   .home-card:hover,
   .home-card:focus {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
-    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    color: #EAF9E1;
     text-decoration: none;
   }
   .home-card-title {
@@ -89,6 +113,8 @@
     font-weight: 700;
     font-size: 1.125rem;
     margin-bottom: 0.35rem;
+    text-align: center;
+    color: #EAF9E1;
   }
   .home-card-subtitle {
     display: block;
@@ -96,9 +122,15 @@
     font-size: 0.95rem;
     line-height: 1.4;
     opacity: 0.95;
+    text-align: left;
+    color: #EAF9E1;
   }
-  .home-card-single .home-card-title {
+  .home-card-wide {
+    text-align: center;
+  }
+  .home-card-wide .home-card-title {
     margin-bottom: 0;
+    text-align: center;
   }
   .home-quote {
     max-width: 48rem;
@@ -126,6 +158,10 @@
     .home-hero img {
       max-width: 280px;
     }
+    .home-matrix-row--a,
+    .home-matrix-row--b {
+      grid-template-columns: 1fr;
+    }
     .home-cards {
       grid-template-columns: 1fr;
     }
@@ -147,8 +183,21 @@
   <hr>
 
   <section class="home-section">
-    <h2>What is this website?</h2>
-    {{ .Params.questions_body | markdownify }}
+    <h2>What is this Website?</h2>
+    <div class="home-matrix">
+      <div class="home-matrix-row home-matrix-row--a">
+        <div class="home-matrix-text">
+          {{ .Params.section2_row1 | markdownify }}
+        </div>
+        <img src="{{ "images/photo1.png" | relURL }}" alt="" />
+      </div>
+      <div class="home-matrix-row home-matrix-row--b">
+        <img src="{{ "images/photo2.png" | relURL }}" alt="" />
+        <div class="home-matrix-text">
+          {{ .Params.section2_row2 | markdownify }}
+        </div>
+      </div>
+    </div>
     <ul class="home-cards">
       <li>
         <a class="home-card" href="{{ "blog/" | relURL }}">
@@ -159,13 +208,13 @@
       <li>
         <a class="home-card" href="{{ "journal/" | relURL }}">
           <span class="home-card-title">Journal</span>
-          <span class="home-card-subtitle">Analytical work. Reproducing results from papers, working through datasets, building models, and question development.</span>
+          <span class="home-card-subtitle">Analytical work. Reproducing results from papers, working through datasets, building models.</span>
         </a>
       </li>
       <li>
         <a class="home-card" href="{{ "projects/" | relURL }}">
           <span class="home-card-title">Projects</span>
-          <span class="home-card-subtitle">Public work I have contributed to.</span>
+          <span class="home-card-subtitle">A place to house designs and questions I'm working through.</span>
         </a>
       </li>
     </ul>
@@ -177,10 +226,9 @@
     <h2>Who am I?</h2>
     {{ .Params.bio_body | markdownify }}
     <ul class="home-cards-single">
-      {{/* TODO: replace placeholder Linktree URL with real link */}}
       <li>
-        <a class="home-card home-card-single" href="https://linktr.ee/">
-          <span class="home-card-title">More of me</span>
+        <a class="home-card home-card-wide" href="https://linktr.ee/duncanpoisson">
+          <span class="home-card-title">More of Me</span>
         </a>
       </li>
     </ul>

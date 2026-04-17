@@ -1,6 +1,6 @@
 ---
 id: sit-jdig
-status: open
+status: closed
 deps: [sit-h2q2]
 links: []
 created: 2026-04-17T23:10:32Z
@@ -23,3 +23,9 @@ Matrix on desktop: CSS grid with 2fr/3fr for row 1 and 3fr/2fr for row 2 — pho
 
 Section-2 heading text is exactly 'What is this Website?' (capital W). Rendered section 2 on a >768px viewport shows row 1 text-left + photo1.png right (text narrower than photo) and row 2 photo2.png left + text-right (photo wider than text); on a ≤768px viewport row 1 stacks text-above-photo and row 2 stacks photo-above-text. The verbatim row-1 and row-2 paragraphs appear in document order. Below the matrix, three <a class='home-card'> cards link to /blog/, /journal/, /projects/ with the updated subtitles; computed background is rgb(8, 38, 32), computed text color rgb(234, 249, 225), title is center-aligned, subtitle is left-aligned, and no list-marker (disc/bullet/number) is visible next to any card. The More-of-Me card href is exactly 'https://linktr.ee/duncanpoisson', card is horizontally centered within its section, its width is 50-60% of container on desktop, and its text is center-aligned. hero_intro and bio_body in content/_index.md are byte-for-byte identical to the prior commit. themes/congo/ unmodified. hugo --minify exits 0 with zero ERROR lines.
 
+
+## Notes
+
+**2026-04-17T23:21:27Z**
+
+Rewrote layouts/index.html: section-2 heading 'What is this Website?' (capital W); replaced questions_body block with .home-matrix containing two rows — row 1 (2fr/3fr) text-left + photo1.png right, row 2 (3fr/2fr) photo2.png left + text-right; three bubbles below the matrix with refreshed subtitles; More-of-Me card uses .home-card-wide modifier (55% width, horizontally centered, centered text) and links to https://linktr.ee/duncanpoisson. Updated all color values (hero-name, section h2, cards) from #429347 to #082620 and card text to #EAF9E1. Added list-style: none on li children to defensively prevent marker rendering. content/_index.md: removed questions_body, added section2_row1 / section2_row2 block scalars with verbatim authored copy; hero_intro and bio_body unchanged. hugo --minify exit 0; verified 3 bubble cards + 1 More-of-Me card + both photos render in public/index.html.
