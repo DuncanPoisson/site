@@ -1,6 +1,6 @@
 ---
 id: sit-ls5r
-status: open
+status: closed
 deps: [sit-u7vk]
 links: []
 created: 2026-04-17T23:11:04Z
@@ -23,3 +23,9 @@ Gallery images are modeled as Hugo page-bundle resources (files co-located with 
 
 content/gallery/_index.md exists with title='Gallery' and a description. At least one collection bundle exists at content/gallery/<slug>/_index.md with title/description front-matter and at least one image file committed inside the bundle directory. layouts/gallery/list.html renders /gallery/ as a card grid of collections — 3 cols at ≥1024px, 2 cols at ≥640px, 1 col below. layouts/gallery/single.html renders /gallery/<slug>/ with a responsive photo grid populated from image resources, and an empty-state message when a collection has zero image resources. hugo --minify exits 0 with zero ERROR lines; public/gallery/index.html exists and contains the collection card; public/gallery/<slug>/index.html exists and contains an <img> referencing the placeholder file. themes/congo/ unmodified; layouts/partials/functions/warnings.html unmodified. Clicking the Gallery nav item navigates to /gallery/; clicking the example collection card navigates to /gallery/<slug>/.
 
+
+## Notes
+
+**2026-04-19T00:55:12Z**
+
+Gallery capability wired up end-to-end. content/gallery/_index.md is the section index; content/gallery/example/_index.md is the example collection (page-bundle section) with example-photo.png copied in from static/images/. layouts/gallery/list.html handles both top-level (/gallery/) and per-collection (/gallery/example/) rendering via branching on .Pages: non-empty .Pages → collection-card grid (3/2/1 responsive, reuses the projects-list visual pattern with cream bg + burnt-orange border + hover lift); empty .Pages → photo grid from .Resources.ByType 'image' with 'No photos yet.' empty state. layouts/gallery/single.html provided as a fallback for future leaf-bundle (index.md) collections. Cover image resolves from .Params.cover first, then falls back to the first image resource. hugo --minify exit 0, 40 pages built. Verified public/gallery/index.html shows the Example Collection card with cover image; public/gallery/example/index.html shows the photo grid with example-photo.png.

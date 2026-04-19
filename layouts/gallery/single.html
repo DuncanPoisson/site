@@ -1,0 +1,59 @@
+{{ define "main" }}
+  <header>
+    {{ if .Params.showBreadcrumbs | default (.Site.Params.list.showBreadcrumbs | default false) }}
+      {{ partial "breadcrumbs.html" . }}
+    {{ end }}
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    {{ with .Description }}
+      <p class="mt-2 text-lg text-neutral-700 dark:text-neutral-400">{{ . }}</p>
+    {{ end }}
+  </header>
+  {{ if .Content }}
+    <section class="prose mt-4 max-w-full dark:prose-invert">
+      {{ .Content | emojify }}
+    </section>
+  {{ end }}
+
+  <style>
+    .gallery-photo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    @media (min-width: 640px) {
+      .gallery-photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .gallery-photo-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .gallery-photo {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 0.5rem;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+    .gallery-empty {
+      margin-top: 2rem;
+      font-style: italic;
+      opacity: 0.75;
+    }
+  </style>
+
+  {{ $images := .Resources.ByType "image" }}
+  {{ if $images }}
+    <div class="gallery-photo-grid">
+      {{ range $images }}
+        <img class="gallery-photo" src="{{ .RelPermalink }}" alt="{{ .Name }}" loading="lazy" />
+      {{ end }}
+    </div>
+  {{ else }}
+    <p class="gallery-empty">No photos yet.</p>
+  {{ end }}
+{{ end }}
