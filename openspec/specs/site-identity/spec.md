@@ -22,11 +22,13 @@ The site SHALL use `Duncan Xavier Haddock` as the author name in `config/_defaul
 - **THEN** the `[author].name` value equals `"Duncan Xavier Haddock"`
 
 ### Requirement: Header site title color
-The header/nav rendering of the site title SHALL be displayed in the primary green color (`#429347`) defined by the active color scheme.
+The header/nav rendering of the site title SHALL be displayed in the primary green color (`#082620`) defined by the active color scheme.
+
+(Previously: primary green `#429347`.)
 
 #### Scenario: Title renders green in the built site
 - **WHEN** `hugo --minify` has built the site and the root page is viewed in a browser
-- **THEN** the computed CSS `color` of the header's site-title element resolves to the primary green (`#429347` or the CSS variable that resolves to it)
+- **THEN** the computed CSS `color` of the header's site-title element resolves to the primary green (`#082620` or the CSS variable that resolves to it)
 
 #### Scenario: Override lives outside the theme
 - **WHEN** inspecting the source of the color override

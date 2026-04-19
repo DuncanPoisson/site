@@ -19,7 +19,7 @@ The Hero section SHALL display Duncan's photo (sourced from `static/images/dunca
 - **WHEN** the viewport width is less than or equal to 768px
 - **THEN** the photo is positioned above the introduction text in a single-column layout
 
-### Requirement: "What is this Website?" section with matrix and three section cards
+### Requirement: "What is this website?" section with three section cards
 The second section SHALL render a heading `What is this Website?` in the primary green (`#082620`), followed by a two-row matrix block, followed by exactly three clickable section cards in a row on desktop (stacked on mobile).
 
 Matrix layout:
