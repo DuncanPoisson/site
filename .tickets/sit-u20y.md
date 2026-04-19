@@ -1,6 +1,6 @@
 ---
 id: sit-u20y
-status: open
+status: closed
 deps: [sit-h2q2, sit-jdig, sit-u7vk, sit-ls5r]
 links: []
 created: 2026-04-17T23:11:20Z
@@ -23,3 +23,9 @@ This is a gated manual QA ticket. It does not write code — it only runs hugo s
 
 All ten QA scenarios (a–j) in the description pass. hugo --minify exits 0 with zero ERROR lines. 'git diff main -- themes/congo/' and 'git diff main -- layouts/partials/functions/warnings.html' both produce zero output. LESSONS.md has been updated if any non-obvious discovery was made during implementation.
 
+
+## Notes
+
+**2026-04-19T00:57:02Z**
+
+Automated QA passes: hugo --minify exit 0, 0 ERROR lines, 40 pages built; themes/congo/ and layouts/partials/functions/warnings.html both show zero diff vs main; rendered nav shows About, Blog, Journal, Gallery, Projects in order (no CV); /cv/ still resolves (public/cv/index.html present); /gallery/ and /gallery/example/ resolve; homepage markers present — 'What is this Website?' (capital W), .home-matrix-row--a, .home-matrix-row--b, photo1.png, photo2.png, .home-card-wide, https://linktr.ee/duncanpoisson, 'More of Me', Angela Davis, color #082620. Limitation: I cannot do browser-based visual QA in this environment — computed-color assertions, hover/focus effects, dark-mode appearance-switcher behavior, and mobile breakpoint behavior are not directly verifiable without spawning hugo server and opening a browser. Owner should spot-check these manually (desktop + mobile, light + dark) before merging. Appended 2 non-obvious learnings to LESSONS.md (header-band full-width trick; single-list.html-with-branching pattern for gallery).
