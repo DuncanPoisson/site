@@ -1,6 +1,6 @@
 baseURL = "https://duncanpoisson.github.io/site/"
 languageCode = "en-us"
-title = "Duncan Xavier Haddock"
+title = "DXH"
 theme = "congo"
 defaultContentLanguage = "en"
 enableRobotsTXT = true

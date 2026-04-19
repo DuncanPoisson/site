@@ -21,6 +21,6 @@ body > header {
 }
 
 .dark body > header {
-  background-color: #2a251f;
-  box-shadow: 0 0 0 100vmax #2a251f;
+  background-color: #c6b195;
+  box-shadow: 0 0 0 100vmax #c6b195;
 }
