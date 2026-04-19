@@ -1,6 +1,6 @@
 ---
 id: sit-t34p
-status: open
+status: closed
 deps: []
 links: []
 created: 2026-04-17T23:09:39Z
@@ -18,3 +18,9 @@ Refine site visuals: darker forest-green primary (#082620), warmer tan backgroun
 
 All delta specs in openspec/changes/design-refinement/ satisfied: color-scheme, homepage-layout, site-identity, gallery. hugo --minify exits 0 with zero ERROR lines. Manual visual QA: desktop + mobile, light + dark. themes/congo/ unmodified; layouts/partials/functions/warnings.html unmodified.
 
+
+## Notes
+
+**2026-04-19T00:57:17Z**
+
+All 5 child tickets closed: sit-h2q2 (palette + header band), sit-u7vk (nav swap CV→Gallery), sit-jdig (homepage matrix + bubble restyle), sit-ls5r (gallery capability), sit-u20y (final validation). hugo --minify exit 0; themes/congo/ and warnings.html unchanged vs main. Ready to archive OpenSpec change design-refinement.
