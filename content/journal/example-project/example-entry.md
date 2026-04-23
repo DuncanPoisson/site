@@ -5,6 +5,16 @@ draft: false
 tags: ["complexity", "simulation"]
 categories: ["research-notes"]
 description: "A placeholder research entry showing frontmatter conventions, code blocks, and cross-links."
+marginalia:
+  - paragraph: 1
+    date: 2026-08-30
+    note: "*Demonstrates* — the placeholder framing leaked into the published copy. Fix on next pass."
+  - paragraph: 2
+    date: 2026-12-14
+    note: "Background section is thin. The interesting question is what *kind* of complexity — see the [companion post](/blog/example-post/)."
+  - paragraph: 3
+    date: 2027-05-02
+    note: "Method paragraph predates the actual method by about a year. Past-self was hand-waving."
 ---
 
 <!--

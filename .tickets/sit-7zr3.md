@@ -1,6 +1,6 @@
 ---
 id: sit-7zr3
-status: open
+status: closed
 deps: [sit-ojxx, sit-o0z6]
 links: []
 created: 2026-04-23T17:09:45Z

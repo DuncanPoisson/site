@@ -6,6 +6,16 @@ tags: ["complexity", "urbanism"]
 categories: ["essays"]
 description: "A placeholder blog post demonstrating frontmatter conventions, TOC headings, and cross-links."
 thumbnail: "images/example-thumb.png"
+marginalia:
+  - paragraph: 1
+    date: 2026-09-12
+    note: "Re-reading this five months later — *demonstrates* is doing too much work."
+  - paragraph: 3
+    date: 2027-02-04
+    note: "Cf. the [Example Research Entry](/journal/example-project/example-entry/) — the simulation work made this concrete in a way the prose didn't."
+  - paragraph: 5
+    date: 2027-08-21
+    note: "Bridge metaphor aged badly. Less bridge, more weave."
 ---
 
 <!--
