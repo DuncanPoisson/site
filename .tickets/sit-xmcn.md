@@ -1,6 +1,6 @@
 ---
 id: sit-xmcn
-status: open
+status: closed
 deps: [sit-7zr3]
 links: []
 created: 2026-04-23T17:09:57Z

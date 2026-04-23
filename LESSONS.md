@@ -4,6 +4,12 @@ Cumulative learnings from development iterations. Each entry references a ticket
 
 ---
 
+### sit-o0z6 — `.Content` keeps `</p>` boundaries even under `hugo --minify`
+
+Hugo's HTML minifier strips closing `</p>` (and other optional closers) from the FINAL output, but `.Content` exposed inside templates is the rendered-markdown HTML BEFORE minification. So template logic that splits `.Content` on `</p>` works under both `hugo` and `hugo --minify` builds — the minifier runs on the bytes after templates emit them, not on `.Content` itself. Verified by building both ways and confirming the marginalia paragraph counter resolves identically.
+
+Also: when fetching webfonts from Google Fonts CSS API for vendoring, the user-agent matters. Default `curl` UA gets `.ttf` URLs; modern Chrome/Firefox UAs get `.woff2`. Set `User-Agent: Mozilla/5.0 ... Chrome/...` to receive the woff2 responses. Caveat (and many recent additions) is served as a variable font where weight-400 and weight-600 resolve to the same woff2 file with the weight axis controlling rendering.
+
 ### sit-h2q2 — full-width header band on a centered body
 
 Congo's `<body>` is `m-auto flex max-w-7xl`, so the `<header>` is clipped to the centered content width. Setting `background-color` alone produces a content-width band, not a site-wide bar. To extend the band edge-to-edge without widening the body, use `box-shadow: 0 0 0 100vmax <color>` combined with `clip-path: inset(0 -100vmax)` on the header — the shadow paints horizontally past the viewport and the clip-path removes vertical overflow. No body `overflow-x` change needed; no horizontal scrollbar appears.
