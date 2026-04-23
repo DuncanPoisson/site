@@ -1,81 +1,77 @@
-# Implementation Plan — Design Refinement
+# Implementation Plan — Marginalia
 
-**Change:** `design-refinement` ([openspec/changes/design-refinement/](openspec/changes/design-refinement/))
+**Change:** `add-marginalia` ([openspec/changes/add-marginalia/](openspec/changes/add-marginalia/))
 **Status:** Proposed — ready for bootstrap/build
 **Owner:** Duncan Xavier Haddock
-**Branch:** `ralph/design-refinement`
+**Branch:** `ralph/my-feature`
 
 ## Goal
 
-Tighten the site's visual identity and expand its navigation around what Duncan actually wants visitors to see. Three things are off about the current build: the palette reads too light, homepage section 2 is a wall of bulleted questions with no visual rhythm, and the CV tab is a placeholder that'd be better spent on a photo Gallery. This change resets the colors, restructures section 2 around two new photos in a two-row matrix, replaces CV with Gallery, and polishes bubble styling (no more default list dots; centered titles; light-mint text on a deep forest-green background).
+Make every long-form post a living organism. Each blog post and journal entry grows a margin of dated, handwritten-style notes that future-Duncan pins to specific paragraphs over time — Post-Its from the future on the past. A 2026 post might, by 2028, carry three small notes in its right gutter saying *"disagree now,"* *"this aged well,"* or *"see also journal/2027-11-03."* It's an old scholarly gesture (marginalia) turned inward, and it makes the site read less like a bulletin board and more like a working notebook.
 
 ## Scope
 
 **In scope**
-- Palette regen in `assets/css/schemes/duncan.css` — new primary forest green `#082620`, new neutral background `#ead4bb`, body text `#0e1416`, bubble text `#EAF9E1`; secondary burnt orange `#C74D20` unchanged. Dark mode regenerated.
-- Header/nav band `#d1baa3` (distinct from page background) added via a new rule in `assets/css/custom.css`.
-- Homepage section 2 rewrite (`layouts/index.html` + `content/_index.md`):
-  - Heading text → `What is this Website?` (capital W).
-  - Two-row matrix: row 1 text-left + `photo1.png` right (2fr/3fr); row 2 `photo2.png` left + text-right (3fr/2fr).
-  - Verbatim authored copy for both rows (see spec).
-  - Three bubbles (Blog / Journal / Projects) move below the matrix with refreshed subtitles.
-- Homepage section 3 (`Who am I?`): center the More-of-Me card, widen to 50–60%, center its text, update href to `https://linktr.ee/duncanpoisson`.
-- Bubble styling pass: remove `<li>` markers, center titles, left-align descriptions, apply new background/text colors to all bubbles.
-- Navigation swap in `config/_default/menus.toml`: remove CV, insert Gallery at weight 40, Projects bumps to 50. New order: About, Blog, Journal, Gallery, Projects.
-- New `gallery` capability:
-  - `content/gallery/_index.md` landing page.
-  - Example collection as a page bundle under `content/gallery/<slug>/` with at least one placeholder image.
-  - `layouts/gallery/list.html` (responsive 3/2/1 card grid).
-  - `layouts/gallery/single.html` (responsive photo grid from `.Resources.ByType "image"` + empty-state message).
-- Spec updates to `color-scheme`, `homepage-layout`, `site-identity`, and a new `gallery` spec (delta specs written; main specs updated on archive).
+- New `marginalia` capability authored entirely in front-matter:
+  ```yaml
+  marginalia:
+    - paragraph: 3
+      date: 2027-11-03
+      note: "I'd put this differently now."
+  ```
+  Required fields: `paragraph` (1-indexed int), `date` (ISO date), `note` (markdown).
+- Project-level override at `layouts/_default/single.html` (a copy of Congo's `single.html` with the `.Content` block wrapped) that:
+  - Splits rendered HTML on `</p>` boundaries.
+  - Walks paragraphs in order, injecting marginalia after the Nth `</p>`.
+  - Dual-renders each note: once as a mobile-inline `<details>` (canonical, screen-reader visible), once in a desktop right rail (visual decoration, `aria-hidden="true"`).
+- New CSS in `assets/css/custom.css`: a two-column grid at `lg:` breakpoint (article body + rail), sticky-note styling, deterministic per-note rotation in [-2deg, +2deg] from a date hash, mobile `<details>` styling, print stylesheet that shows the inline copy and hides the rail.
+- Self-hosted **Caveat** webfont (Google OFL) under `static/fonts/caveat/` — no third-party font requests at runtime.
+- Scope gated to `Section in {blog, journal}` via the layout — Gallery, About, CV, Homepage are explicitly ignored.
+- Example marginalia shipped on the existing example blog post and example journal entry so the feature is observable on a fresh build.
+- Spec deltas: new `marginalia` spec; ADDED requirements on `blog-layout` and `journal-layout` capturing the new render expectations.
 
 **Out of scope**
-- Replacing placeholder gallery photos with final imagery.
-- Image pipeline work (srcset, responsive resources, optimization) — revisit when gallery is populated.
-- Redesigning Blog / Journal / Projects list layouts — only their bubble subtitles on the homepage change.
-- Removing or modifying `content/cv/`. `/cv/` continues to resolve; it's just not linked from the nav.
-- Any edits inside `themes/congo/` or `layouts/partials/functions/warnings.html`.
+- Authoring UI / CMS / in-browser editing.
+- Anchor-based targeting (`marginalia: [{anchor: "...", ...}]`) — designed-for in v2 but not built in v1.
+- Marginalia on non-article pages (index, section landings, About, Gallery, CV, project landings).
+- Inter-post backlinks rendered as marginalia.
+- Any animation, scroll-triggered reveals, or JS dependencies.
+- Modifying anything under `themes/congo/`.
 
 ## Approach
 
-1. **Palette first.** Regenerate `duncan.css` around `#082620` primary and `#ead4bb` neutral; keep secondary burnt orange untouched. Regenerate dark mode with a brighter primary 500 so text remains legible. Add the header-band rule in `custom.css`. Validate the header selector against the rendered `public/`.
-2. **Homepage CSS, then markup, then copy.** Rewrite the inline `<style>` block in `layouts/index.html` for the matrix, the new bubble colors, the centered wide More-of-Me modifier, and the `list-style: none` reset. Then rewrite the section-2 markup (heading text, two matrix rows, bubble re-order). Then shift `content/_index.md` params so the two matrix paragraphs are stored verbatim (or inline them in the layout — simpler if they're not edited often).
-3. **Menus.toml swap.** One-line-in, one-line-out; bump Projects weight.
-4. **Gallery scaffold.** Content bundle + two layouts; copy the card pattern from `layouts/projects/list.html` so the Gallery landing feels continuous with the rest of the site.
-5. **Validate.** `hugo --minify` must exit 0 with no `ERROR` lines. Then `hugo server` for a manual walk-through: desktop + mobile, light + dark, all five nav targets, gallery landing → collection, `/cv/` still resolves.
+1. **Foundation first** — vendor the font, declare `@font-face`, write the base CSS rules covering desktop grid, mobile `<details>`, sticky-note styling, deterministic rotation via a `--marginalia-rot` custom property, and print stylesheet.
+2. **Layout override** — copy Congo's `single.html` to `layouts/_default/single.html` and replace the `.Content` block with the marginalia-injecting wrapper. Gate on `Section` ∈ `{blog, journal}` AND non-empty `.Params.marginalia`. Implement paragraph-walking, dual-render emission, deterministic rotation injection, and a `warnf` for out-of-range paragraph indices.
+3. **Examples** — add 2-3 marginalia entries to the existing example blog post and journal entry covering different paragraphs and dates.
+4. **Validate** — `hugo --minify` exits 0; manual walk-through at desktop + mobile, light + dark, print preview; verify zero third-party font requests; `npx openspec validate add-marginalia --strict`.
 
 ## Key Design Decisions
 
 | Decision | Why |
 |---|---|
-| Palette driven through the scheme file, not per-element overrides | Re-deriving the full primary/neutral scale in `duncan.css` means every surface Congo paints (links, tags, buttons, footer) picks up the new tones automatically. Only two surfaces need explicit `custom.css` rules (header title, header band). |
-| Header/nav band via `custom.css` selector override, not a theme partial copy | Smallest surface area. If the selector proves brittle against Congo upgrades, fall back to overriding `layouts/partials/header.html`. |
-| Section-2 matrix uses CSS grid with `2fr/3fr` + `3fr/2fr` rows | Photos carry more information than the text blocks, so they get the larger column. Grid collapses cleanly to a single column below 768px. |
-| Bubble-group markup stays as `<ul>` with `list-style: none` | Semantic (a list of navigational options), cheap to fix the marker issue. |
-| `More of Me` bubble reuses `.home-card` and adds `.home-card-wide` | Preserves visual identity with the three main bubbles while unlocking the centered + wider layout. |
-| Gallery images are page-bundle resources, not content files | Adding a photo = dropping a file into the collection's directory. No per-image markdown needed. |
-| Example collection ships committed | So the `/gallery/` landing isn't empty on first build, and so Duncan has a template to copy. |
-| CV content stays, only nav changes | `/cv/` remains live for anyone with the direct link; we don't delete work. |
+| Paragraph-index targeting (Nth `</p>`), not anchors | Zero markup burden on the author. Drop a note in front-matter; it shows up. Trade-off: editing the post body shifts indices — accepted, since marginalia naturally belong on stable, no-longer-being-edited posts. |
+| Dual-render (rail + inline) with `aria-hidden` on the rail | Cannot statically position the rail to align with paragraphs without per-paragraph offsets. Two render passes keeps the feature CSS-only and Hugo-static-friendly. The mobile inline copy is canonical for accessibility; the rail is visual decoration. |
+| Single override at `layouts/_default/single.html`, not per-section | The override only diverges from Congo's stock `single.html` in one place. One template avoids drift between near-identical files. Section gating happens inside the template via `.Section`. |
+| Self-hosted Caveat (Google OFL), not a CDN webfont | No third-party requests at runtime — privacy-clean and offline-buildable. ~40KB across two weights — acceptable. |
+| Deterministic rotation from a stable date hash | Each note rotates a small amount so they don't sit perfectly square — but the same date always produces the same angle, so there's no visual "shimmer" across rebuilds. |
+| Scope to blog + journal only in v1 | Gallery is photo-led, About / CV are layout-led, homepage is layout-led. The capability spec is written so a v2 can extend scope by relaxing one requirement clause. |
+| Caveat over Kalam / Architects Daughter | Legible at small sizes, two weights, well-paired with the existing serif body. |
+| Theme files untouched | `themes/congo/` is off-limits per `AGENTS.md`. All work lives in `layouts/`, `assets/css/custom.css`, `static/`, and content front-matter. |
 
 ## Deliverables
 
-- `assets/css/schemes/duncan.css` — palette regen (primary + neutral + dark mode).
-- `assets/css/custom.css` — header-title color value updated to `#082620`; new header-band rule.
-- `layouts/index.html` — matrix CSS + markup; new bubble styles; wider centered More-of-Me; list-marker reset.
-- `content/_index.md` — section-2 body replaced with two verbatim matrix paragraphs; bubble subtitles updated; hero and bio unchanged; More-of-Me link → `https://linktr.ee/duncanpoisson`.
-- `config/_default/menus.toml` — CV replaced with Gallery; Projects bumped to weight 50.
-- `content/gallery/_index.md` — gallery landing page.
-- `content/gallery/<example-slug>/_index.md` + at least one placeholder image — scaffolded example collection.
-- `layouts/gallery/list.html` — responsive collection-card grid.
-- `layouts/gallery/single.html` — per-collection photo grid with empty-state.
-- Clean `hugo --minify` build, zero `ERROR` lines.
+- `static/fonts/caveat/{Caveat-Regular.woff2,Caveat-SemiBold.woff2,OFL.txt}` vendored.
+- `assets/css/custom.css` extended with `@font-face` for Caveat and the full marginalia rule set (grid, rail, sticky-note, mobile inline, print).
+- `layouts/_default/single.html` created as Congo-`single.html`-with-marginalia-wrapper.
+- 2-3 example marginalia entries on the example blog post (`content/blog/<example>.md`).
+- 2-3 example marginalia entries on the example journal entry (`content/journal/<project>/<entry>.md`).
+- `hugo --minify` passes with zero `ERROR` lines on the build.
+- `npx openspec validate add-marginalia --strict` passes (already does for the proposed artifacts; will re-run before archive).
 
-## References
+## Future (v2+) — explicitly out of scope here
 
-- [proposal.md](openspec/changes/design-refinement/proposal.md) — why this change
-- [design.md](openspec/changes/design-refinement/design.md) — how it's structured
-- [specs/color-scheme/spec.md](openspec/changes/design-refinement/specs/color-scheme/spec.md) — palette, body text, header band, nav structure
-- [specs/homepage-layout/spec.md](openspec/changes/design-refinement/specs/homepage-layout/spec.md) — hero color, section-2 matrix, section-3 bubble, list-marker reset
-- [specs/site-identity/spec.md](openspec/changes/design-refinement/specs/site-identity/spec.md) — header-title color value update
-- [specs/gallery/spec.md](openspec/changes/design-refinement/specs/gallery/spec.md) — gallery capability (new)
-- [tasks.md](openspec/changes/design-refinement/tasks.md) — implementation checklist
+- **Anchor-based targeting**: `marginalia: [{anchor: "thesis-claim", date, note}]`, with body-side `{{< anchor "thesis-claim" >}}` shortcode. Survives paragraph-index drift on edits.
+- **Note kinds**: `kind: correction | amplification | retraction`, each rendering with a distinct color/icon variant.
+- **Scope expansion**: About page, project landings, perhaps Homepage.
+- **Inter-post backlinks**: render "post X at /blog/.../#para-3 cites this paragraph" as automatically-generated marginalia.
+- **Viewport-windowing**: only show notes whose target paragraph is currently in viewport (requires JS — declined for v1).
