@@ -1,5 +1,8 @@
-## ADDED Requirements
+# journal-layout Specification
 
+## Purpose
+TBD - update on next archive. The journal landing page (project grid) and individual journal entry layouts.
+## Requirements
 ### Requirement: Journal section replaces Research
 The system SHALL serve journal content at `/journal/` instead of `/research/`. All content previously under `content/research/` SHALL exist under `content/journal/` with the same project-based structure: `content/journal/<project>/_index.md` and `content/journal/<project>/<entry>.md`.
 
@@ -50,3 +53,19 @@ All internal `ref` and `relref` shortcodes that previously pointed to `/research
 #### Scenario: Blog cross-links to journal
 - **WHEN** a blog post links to a journal entry via `ref "/journal/example-project/example-entry"`
 - **THEN** the link resolves correctly and `hugo --minify` exits 0
+
+### Requirement: Journal entry single page renders marginalia
+A journal entry's single page SHALL render any front-matter `marginalia` entries according to the `marginalia` capability. An entry without marginalia SHALL render exactly as it does today.
+
+#### Scenario: Entry with marginalia
+- **WHEN** a journal entry under `content/journal/<project>/*.md` has a non-empty `marginalia` front-matter list
+- **THEN** the rendered single page contains the configured notes per the `marginalia` capability requirements (desktop rail and mobile inline)
+
+#### Scenario: Entry without marginalia
+- **WHEN** a journal entry has no `marginalia` front-matter
+- **THEN** the rendered single page is byte-identical (modulo whitespace) to the same entry built before this change
+
+#### Scenario: Project landing page is out of scope
+- **WHEN** a project landing page (`content/journal/<project>/_index.md`) declares a `marginalia` front-matter list
+- **THEN** the rendered landing page contains no marginalia output (v1 limits scope to entry pages, not project landings)
+
