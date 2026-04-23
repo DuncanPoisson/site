@@ -24,3 +24,175 @@ body > header {
   background-color: #c6b195;
   box-shadow: 0 0 0 100vmax #c6b195;
 }
+
+/* === Marginalia ===
+   Dated paragraph-pinned author notes for blog + journal entries.
+   Authored in front-matter; rendered via layouts/_default/single.html.
+   Desktop (>=1024px): notes float in a right-side gutter.
+   Mobile (<1024px):  notes collapse inline as <details> after their paragraph. */
+
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: local('Caveat'),
+       url('/fonts/caveat/caveat-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: local('Caveat'),
+       url('/fonts/caveat/caveat-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* Mobile-first default: rail hidden, body is full-width, mobile inline notes show. */
+.marginalia-grid {
+  display: block;
+}
+.marginalia-rail {
+  display: none;
+}
+.marginalia--desktop {
+  display: none;
+}
+
+/* Mobile inline notes: a <details> attached to each paragraph. */
+.marginalia--mobile {
+  display: block;
+  margin: 0.75rem 0 1.25rem;
+}
+.marginalia--mobile details {
+  border-left: 3px solid rgba(199, 77, 32, 0.6);
+  padding: 0.4rem 0.75rem;
+  background: rgba(255, 228, 212, 0.5);
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+.dark .marginalia--mobile details {
+  background: rgba(80, 30, 12, 0.4);
+  border-left-color: rgba(228, 114, 68, 0.7);
+}
+.marginalia--mobile summary {
+  font-family: 'Caveat', cursive;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(8, 38, 32, 0.85);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+.dark .marginalia--mobile summary {
+  color: rgba(234, 249, 225, 0.85);
+}
+.marginalia--mobile details[open] summary {
+  margin-bottom: 0.4rem;
+}
+.marginalia--mobile .marginalia__note,
+.marginalia--mobile details > p,
+.marginalia--mobile details > * {
+  font-family: 'Caveat', cursive;
+  font-size: 1.15rem;
+  line-height: 1.45;
+  margin: 0.25rem 0;
+}
+
+/* Desktop layout: two columns — article body + a 16rem rail of sticky notes. */
+@media (min-width: 1024px) {
+  .marginalia-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 16rem;
+    gap: 2rem;
+    align-items: start;
+  }
+  .marginalia-body {
+    min-width: 0;
+  }
+  .marginalia-rail {
+    display: block;
+    position: sticky;
+    top: 4rem;
+    align-self: start;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+    padding: 0 0.25rem;
+  }
+  .marginalia--desktop {
+    display: block;
+    font-family: 'Caveat', cursive;
+    background: rgba(255, 228, 212, 0.85);
+    border: 1px solid rgba(199, 77, 32, 0.35);
+    border-radius: 0.25rem;
+    padding: 0.6rem 0.75rem;
+    margin-bottom: 1rem;
+    box-shadow: 1px 2px 4px rgba(14, 20, 22, 0.12);
+    transform: rotate(var(--marginalia-rot, 0deg));
+    transform-origin: center;
+  }
+  .dark .marginalia--desktop {
+    background: rgba(80, 30, 12, 0.7);
+    border-color: rgba(228, 114, 68, 0.5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  /* Hide the inline mobile copy at desktop sizes. */
+  .marginalia--mobile {
+    display: none;
+  }
+}
+
+.marginalia__date {
+  display: block;
+  font-family: 'Caveat', cursive;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(8, 38, 32, 0.65);
+  margin-bottom: 0.2rem;
+}
+.dark .marginalia__date {
+  color: rgba(234, 249, 225, 0.65);
+}
+
+.marginalia--desktop .marginalia__note {
+  font-size: 1.15rem;
+  line-height: 1.4;
+  color: rgba(14, 20, 22, 0.95);
+}
+.dark .marginalia--desktop .marginalia__note {
+  color: rgba(234, 249, 225, 0.95);
+}
+.marginalia--desktop .marginalia__note p {
+  margin: 0.2rem 0;
+}
+.marginalia--desktop .marginalia__note a {
+  color: rgba(199, 77, 32, 1);
+  text-decoration: underline;
+}
+.dark .marginalia--desktop .marginalia__note a {
+  color: rgba(228, 114, 68, 1);
+}
+
+/* Print: hide the rail; show inline notes expanded. */
+@media print {
+  .marginalia-grid {
+    display: block;
+  }
+  .marginalia-rail,
+  .marginalia--desktop {
+    display: none !important;
+  }
+  .marginalia--mobile {
+    display: block;
+    page-break-inside: avoid;
+  }
+  .marginalia--mobile details {
+    background: none;
+    border-left: 2px solid #888;
+  }
+  .marginalia--mobile details > * {
+    display: block !important;
+  }
+}
